@@ -6,13 +6,11 @@ export default class AuthRepository {
     listAllUsers(): Promise<User[]> {
         return getManager()
             .getRepository(User)
-            .createQueryBuilder('User')
-            .select('User.email')
-            .getMany();
+            .find()
     }
 
-    findOneUser(userEmail: string): Promise<User | undefined> {
-        return getManager().getRepository(User).findOne({
+    findOneUser(userEmail: string): Promise<User> {
+        return getManager().getRepository(User).findOneOrFail({
             where: {
                 email: userEmail
             }

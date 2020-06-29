@@ -1,24 +1,36 @@
 import { Request, Response } from "express";
 import UserRepository from '../repository/UserRepository'
-import { User } from "../entity/User";
-import { create } from "domain";
+import { User } from "../entity/User"
+import * as jwt from 'jsonwebtoken'
+import config from '../config/config'
 
 class AuthController {
     static signIn = async(req: Request, res: Response) => {
         try {
             const { email, password } = req.body
             let userRepository = new UserRepository()
+            let user = new User()
     
             if(!(email && password)) {
                 res.status(400).send();
             }
 
-            const verifyIfExists = await userRepository.findOneUser(email)
-            return res.json(verifyIfExists)
+            user = await userRepository.findOneUser(email)
+            
+            if(!user.checkIfUnencryptedPasswordIsValid(password)) {
+                return res.status(401).send()
+            }
+
+            const token = jwt.sign(
+                {email: user.email, username: `${user.firstName} ${user.lastName}`},
+                config.jwtSecret,
+                {expiresIn: '1h'}
+            )
+
+            return res.json({token: token})
 
         } catch (error) {
-
-            console.log(error)
+            return res.status(401).send()
         }
     }
 

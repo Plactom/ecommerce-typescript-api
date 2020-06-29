@@ -6,7 +6,7 @@ require('dotenv/config')
 
 createConnection({
     type: 'postgres',
-    url: 'postgres://tqykeeyh:ke7nyaXxWW67RMLLTaABmUzZGEDxrnxt@ruby.db.elephantsql.com:5432/tqykeeyh',
+    url: process.env.DB_URL,
     synchronize: true,
     entities: ["src/entity/*.ts"],
     logging: true

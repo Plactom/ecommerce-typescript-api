@@ -4,7 +4,13 @@ import { createConnection } from 'typeorm'
 
 require('dotenv/config')
 
-createConnection().then(connection => {
+createConnection({
+    type: 'postgres',
+    url: 'postgres://tqykeeyh:ke7nyaXxWW67RMLLTaABmUzZGEDxrnxt@ruby.db.elephantsql.com:5432/tqykeeyh',
+    synchronize: true,
+    entities: ["src/entity/*.ts"],
+    logging: true
+}).then(connection => {
     connection.synchronize()
 
     const app: Application = express()

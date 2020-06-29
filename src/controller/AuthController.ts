@@ -1,24 +1,26 @@
 import { Request, Response } from "express";
-import AuthRepository from '../repository/AuthRepository'
+import UserRepository from '../repository/UserRepository'
 
 class AuthController {
-    private repository: AuthRepository
-    constructor() {
-        this.repository = new AuthRepository();
-    }
-    static login = async(req: Request, res: Response) => {
-        const { username, password } = req.body
-
-        if(!(username && password)) {
-            res.status(400).send();
-        }
-
+    static signIn = async(req: Request, res: Response) => {
         try {
-            const verifyIfExists = this
+            const { username, password } = req.body
+            let userRepository = new UserRepository()
+    
+            if(!(username && password)) {
+                res.status(400).send();
+            }
+
+            const verifyIfExists = userRepository.ifUserExists(username)
+            return res.json(verifyIfExists)
+
         } catch (error) {
+
             console.log(error)
         }
     }
+
+
 }
 
 export default AuthController

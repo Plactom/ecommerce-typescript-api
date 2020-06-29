@@ -22,7 +22,11 @@ class AuthController {
             }
 
             const token = jwt.sign(
-                {email: user.email, username: `${user.firstName} ${user.lastName}`},
+                {
+                    email: user.email, 
+                    username: `${user.firstName} ${user.lastName}`, 
+                    commerceName: user.commerceName
+                },
                 config.jwtSecret,
                 {expiresIn: '1h'}
             )
@@ -31,26 +35,6 @@ class AuthController {
 
         } catch (error) {
             return res.status(401).send()
-        }
-    }
-
-    static signUp = async(req: Request, res: Response) => {
-        try {
-            const { email, password, firstName, lastName } = req.body
-            let userRepository = new UserRepository()
-            let user = new User()
-            user.email = email
-            user.firstName = firstName
-            user.lastName = lastName
-
-            const verifyIfExists  = await userRepository.findOneUser(email)
-
-            const createUser = await userRepository.createUser(user)
-
-            return res.json(createUser)
-            
-        } catch (error) {
-            console.log(error)
         }
     }
 }

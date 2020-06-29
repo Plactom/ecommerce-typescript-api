@@ -4,14 +4,14 @@ import UserRepository from '../repository/UserRepository'
 class AuthController {
     static signIn = async(req: Request, res: Response) => {
         try {
-            const { username, password } = req.body
+            const { email, password } = req.body
             let userRepository = new UserRepository()
     
-            if(!(username && password)) {
+            if(!(email && password)) {
                 res.status(400).send();
             }
 
-            const verifyIfExists = userRepository.ifUserExists(username)
+            const verifyIfExists = userRepository.ifUserExists(email)
             return res.json(verifyIfExists)
 
         } catch (error) {
@@ -20,7 +20,13 @@ class AuthController {
         }
     }
 
-
+    static signUp = async(req: Request, res: Response) => {
+        try {
+            
+        } catch (error) {
+            
+        }
+    }
 }
 
 export default AuthController

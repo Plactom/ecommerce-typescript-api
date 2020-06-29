@@ -7,7 +7,7 @@ export default class AuthRepository {
         return await getManager()
             .getRepository(User)
             .createQueryBuilder('User')
-            .select('User.id')
+            .select('User.email')
             .getMany();
     }
 }

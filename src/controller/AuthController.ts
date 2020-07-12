@@ -24,14 +24,15 @@ class AuthController {
             const token = jwt.sign(
                 {
                     email: user.email, 
-                    username: `${user.firstName} ${user.lastName}`, 
+                    firstName: user.firstName,
+                    lastName: user.lastName, 
                     commerceName: user.commerceName
                 },
                 config.jwtSecret,
                 {expiresIn: '1h'}
             )
-
-            return res.json({token: token})
+            
+            res.json({token: token})
 
         } catch (error) {
             return res.status(401).send()

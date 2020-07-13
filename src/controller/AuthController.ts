@@ -31,7 +31,7 @@ class AuthController {
                 config.jwtSecret,
                 {expiresIn: '1h'}
             )
-            
+
             res.json({token: token})
 
         } catch (error) {

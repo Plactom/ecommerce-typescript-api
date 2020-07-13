@@ -1,7 +1,8 @@
 import express, { Application, Request, Response, NextFunction } from "express"
-import routes from './router/auth'
+import authRoutes from './router/auth'
+import productManagement from './router/productManagement'
 import { createConnection } from 'typeorm'
-import * as helmet from "helmet"
+import Helmet from "helmet"
 
 require('dotenv/config')
 
@@ -15,9 +16,10 @@ createConnection({
     connection.synchronize()
 
     const app: Application = express()
-
     app.use(express.json())
-    app.use("/", routes)
+    app.use(Helmet())
+    app.use("/auth", authRoutes)
+    app.use("/productManagement", productManagement)
     
     const PORT = process.env.PORT
     

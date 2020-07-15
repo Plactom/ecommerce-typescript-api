@@ -11,7 +11,7 @@ export const checkJwt = (req: Request, res: Response, next: NextFunction) => {
         res.locals.jwtPayload = jwtPayload;
 
     } catch (error) {
-        return res.status(401).send()
+        return res.status(401).json({message: "jwt not found"})
     }
 
     const { firstName, lastName, email } = jwtPayload

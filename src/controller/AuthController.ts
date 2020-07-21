@@ -27,7 +27,7 @@ class AuthController {
                     email: user.email,
                     firstName: user.firstName,
                     lastName: user.lastName,
-                    commerceName: user.commerceName
+                    commerceName: user.commerce
                 },
                 config.jwtSecret,
                 {expiresIn: '1h'}

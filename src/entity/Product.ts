@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm'
+import { Commerce } from './Commerce'
 
 
 @Entity()
@@ -16,5 +17,6 @@ export class Product {
     @Column()
     price: number
 
-    
+    @ManyToOne(type => Commerce, commerce => commerce.products)
+    commerce: Commerce
 }

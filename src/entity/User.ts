@@ -1,5 +1,6 @@
-import {Entity, Column, PrimaryGeneratedColumn, Unique, CreateDateColumn, UpdateDateColumn} from "typeorm";
+import {Entity, Column, PrimaryGeneratedColumn, Unique, CreateDateColumn, UpdateDateColumn, ManyToOne} from "typeorm";
 import { Length, IsNotEmpty, IsEmail, IsLowercase } from 'class-validator'
+import { Commerce } from './Commerce'
 import * as  bcrypt from 'bcryptjs'
 
 @Entity()
@@ -10,13 +11,15 @@ export class User {
     id: number;
 
     @Column()
+    @IsNotEmpty()
     firstName: string;
 
     @Column()
+    @IsNotEmpty()
     lastName: string;
 
-    @Column()
-    commerceName: string
+    @ManyToOne(type => Commerce, commerce => commerce.users)
+    commerce: Commerce
 
     @Column()
     @IsEmail()
@@ -25,6 +28,7 @@ export class User {
 
     @Column()
     @Length(4, 100)
+    @IsNotEmpty()
     password: string
 
     @Column()

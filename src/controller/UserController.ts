@@ -17,8 +17,10 @@ class UserController {
         user.role = role;
 
         const errors = validate(user);
+
         if((await errors).length > 0) {
-            return res.status(400).send(errors)
+        
+            return res.status(400).send()
         }
 
         user.hashPassword()

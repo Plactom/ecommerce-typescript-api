@@ -1,5 +1,5 @@
 import {Entity, Column, PrimaryGeneratedColumn, Unique, CreateDateColumn, UpdateDateColumn} from "typeorm";
-import { Length, IsNotEmpty } from 'class-validator'
+import { Length, IsNotEmpty, IsEmail, IsLowercase } from 'class-validator'
 import * as  bcrypt from 'bcryptjs'
 
 @Entity()
@@ -19,6 +19,8 @@ export class User {
     commerceName: string
 
     @Column()
+    @IsEmail()
+    @IsLowercase()
     email: string;
 
     @Column()

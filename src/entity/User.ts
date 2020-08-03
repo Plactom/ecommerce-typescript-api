@@ -18,7 +18,9 @@ export class User {
     @IsNotEmpty()
     lastName: string;
 
-    @ManyToOne(type => Commerce, commerce => commerce.users)
+    @ManyToOne(type => Commerce, commerce => commerce.users, {
+        eager: true
+    })
     commerce: Commerce
 
     @Column()

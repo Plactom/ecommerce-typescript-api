@@ -5,6 +5,6 @@ import { checkRole } from '../middlewares/checkRole'
 
 const router = Router()
 
-router.get('/listAll', [checkJwt, checkRole(['ADMIN'])], ProductController.listAll)
+router.post('/newProduct', [checkJwt, checkRole(['ADMIN'])], ProductController.newProduct)
 
 export default router

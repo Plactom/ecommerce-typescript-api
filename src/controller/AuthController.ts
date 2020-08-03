@@ -16,7 +16,7 @@ class AuthController {
             }
 
             user = await userRepository.findOneUser(email)
-            
+            console.log(user)
             if(!user.checkIfUnencryptedPasswordIsValid(password)) {
                 return res.status(401).send()
             }
@@ -24,10 +24,10 @@ class AuthController {
             const token = jwt.sign(
                 {
                     userId: user.id,
-                    email: user.email,
+                    email: user.email.toLowerCase(),
                     firstName: user.firstName,
                     lastName: user.lastName,
-                    commerceName: user.commerce
+                    commerce: user.commerce
                 },
                 config.jwtSecret,
                 {expiresIn: '1h'}

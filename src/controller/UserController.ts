@@ -17,11 +17,10 @@ class UserController {
         user.password = password;
         user.role = role;
 
-        const errors = validate(user);
+        const errors = await validate(user);
 
-        if((await errors).length > 0) {
-            console.log(errors)
-            return res.status(400).send()
+        if(errors.length > 0) {
+            return res.status(400).send(errors)
         }
 
         user.hashPassword()
@@ -40,7 +39,7 @@ class UserController {
             return res.status(409).send(error)
         }
 
-        return res.status(204).send()
+        return res.status(201).send()
     }
 }
 

@@ -18,7 +18,6 @@ class UserController {
         user.role = role;
 
         const errors = await validate(user);
-
         if(errors.length > 0) {
             return res.status(400).send(errors)
         }

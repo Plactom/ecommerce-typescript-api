@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import ProductRepository from '../repository/ProductRepository'
 import { Product } from '../entity/Product'
+import { validate } from 'class-validator'
 class ProductController {
     static newProduct = async(req: Request, res: Response) => {
         const { productName, productDescription, productPrice } = req.body;
@@ -13,9 +14,10 @@ class ProductController {
         product.price = productPrice || 0.00;
         product.commerce = commerceId;
 
-        
-        if(!(productName && productDescription))
-            res.status(400).send()
+        const errors = await validate(product)
+        if(errors.length > 0) {
+            return res.status(400).send(errors)
+        }
 
         try {
             product = await productRepository.createProduct(product)

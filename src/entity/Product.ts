@@ -4,8 +4,8 @@ import { Commerce } from './Commerce'
 
 
 @Entity()
-export class Product {
-
+export class Product{
+    
     @PrimaryGeneratedColumn()
     id: number
 
@@ -17,9 +17,11 @@ export class Product {
     productDescription: string
 
     @IsNotEmpty()
-    @Column()
+    @Column("float")
     price: number
 
     @ManyToOne(type => Commerce, commerce => commerce.products)
     commerce: Commerce
+
 }
+

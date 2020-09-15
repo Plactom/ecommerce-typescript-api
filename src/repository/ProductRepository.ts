@@ -9,7 +9,7 @@ export default class ProductRepository {
         .find()
     }
 
-    findOneProduct(productId: number): Promise<Product> {
+    findOneProduct(productId: string): Promise<Product> {
         return getManager().getRepository(Product).findOneOrFail({
             where: {
                 id: productId
@@ -21,7 +21,7 @@ export default class ProductRepository {
         return getManager().getRepository(Product).save(product)
     }
 
-    async updateProduct(product: Product): Promise<Object> {
+    async updateProduct(product: Product, productId: any): Promise<Object> {
         const update = await getConnection()
         .createQueryBuilder()
         .update(Product)
@@ -30,7 +30,7 @@ export default class ProductRepository {
             productDescription: product.productDescription,
             price: product.price,
         })
-        .where("id = :id", { id: 1 })
+        .where("id = :id", { id: productId })
         .execute()
 
         return update

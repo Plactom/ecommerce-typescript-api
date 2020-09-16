@@ -29,6 +29,7 @@ export default class ProductRepository {
             productName: product.productName,
             productDescription: product.productDescription,
             price: product.price,
+            amount: product.amount
         })
         .where("id = :id", { id: productId })
         .execute()

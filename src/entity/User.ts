@@ -1,5 +1,6 @@
 import {Entity, Column, PrimaryGeneratedColumn, Unique, CreateDateColumn, UpdateDateColumn, ManyToOne} from "typeorm";
 import { Length, IsNotEmpty, IsEmail, IsLowercase } from 'class-validator'
+import { Product, IProduct } from '../entity/Product'
 import { Commerce } from './Commerce'
 import * as  bcrypt from 'bcryptjs'
 
@@ -36,6 +37,9 @@ export class User {
     @Column()
     @IsNotEmpty()
     role: string
+
+    @ManyToOne(type => Product, product => product.id)
+    cart: IProduct[]
 
     @Column()
     @CreateDateColumn()

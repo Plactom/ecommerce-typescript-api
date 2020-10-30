@@ -1,4 +1,4 @@
-import { getManager } from "typeorm";
+import { getConnection, getManager } from "typeorm";
 import { User } from '../entity/User'
 
 export default class UserRepository {
@@ -28,4 +28,5 @@ export default class UserRepository {
             }
         })
     }
+
 }

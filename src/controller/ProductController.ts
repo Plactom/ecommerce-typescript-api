@@ -41,6 +41,7 @@ class ProductController {
         product.productDescription = productDescription || null;
         product.price = productPrice || null;
         product.amount = amount || null
+        
         let result: Object
 
         try {

@@ -1,8 +1,8 @@
-import {Entity, Column, PrimaryGeneratedColumn, Unique, CreateDateColumn, UpdateDateColumn, ManyToOne} from "typeorm";
+import {Entity, JoinColumn, OneToOne, Column, PrimaryGeneratedColumn, Unique, CreateDateColumn, UpdateDateColumn, ManyToOne} from "typeorm";
 import { Length, IsNotEmpty, IsEmail, IsLowercase } from 'class-validator'
-import { Product, IProduct } from '../entity/Product'
 import { Commerce } from './Commerce'
 import * as  bcrypt from 'bcryptjs'
+import { Cart } from "./Cart";
 
 @Entity()
 @Unique(['email'])
@@ -20,7 +20,8 @@ export class User {
     lastName: string;
 
     @ManyToOne(type => Commerce, commerce => commerce.users, {
-        eager: true
+        eager: true,
+        onDelete: 'CASCADE'
     })
     commerce: Commerce
 
@@ -36,10 +37,12 @@ export class User {
 
     @Column()
     @IsNotEmpty()
-    role: string
+    role: string;
 
-    @ManyToOne(type => Product, product => product.id)
-    cart: IProduct[]
+    @OneToOne(() => Cart)
+    @JoinColumn()
+    cart: Cart;
+
 
     @Column()
     @CreateDateColumn()

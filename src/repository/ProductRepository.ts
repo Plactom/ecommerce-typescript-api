@@ -1,4 +1,4 @@
-import { getManager, UpdateResult } from 'typeorm'
+import { getManager } from 'typeorm'
 import { getConnection } from 'typeorm'
 import { Product } from '../entity/Product'
 
